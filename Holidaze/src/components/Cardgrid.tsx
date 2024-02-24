@@ -1,50 +1,100 @@
-import React, { useEffect, useState } from "react";
-import { Card, Col, Row } from "react-bootstrap";
-import apiClient from "../services/api-client";
-interface venues {
-  data: object;
-  id: string;
-  name: string;
-  description: string;
+import { useState } from "react";
+import { Form, Row } from "react-bootstrap";
 
-  url: string;
-  alt: string;
-}
-interface FetchVenuesResponse {
-  results: venues[];
-}
+import useVenues from "../hooks/useVenues";
+
+import CardComp from "./CardComp";
+
+import "../App.css";
+import { ArrowLeft, ArrowRight } from "react-bootstrap-icons";
 
 const Cardgrid = () => {
-  const [venues, setVenues] = useState<venues[]>([]);
-  const [error, setError] = useState("");
-  useEffect(() => {
-    apiClient
-      .get<FetchVenuesResponse>("holidaze/venues")
-      .then((res) => setVenues(res.data.results));
-  });
+  const [search, setSearch] = useState("");
+
+  const { venues, error } = useVenues("/holidaze/venues");
+  const [venuesPerPage, setVenuesPerPage] = useState(12);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const numberOfTotalPages = Math.ceil(venues.length / venuesPerPage);
+  const pages = [...Array(numberOfTotalPages + 1).keys()].slice(1);
+  const indexOfLastVenue = currentPage + venuesPerPage;
+  const indexOfFirstVenue = indexOfLastVenue - venuesPerPage;
+  const visibleVenues = venues.slice(indexOfFirstVenue, indexOfLastVenue);
+  const prevPageHandler = () => {
+    if (currentPage !== 1) setCurrentPage(currentPage - 1);
+  };
+
+  const nextPageHandler = () => {
+    if (currentPage !== numberOfTotalPages) setCurrentPage(currentPage + 1);
+  };
 
   return (
-    <Row className="flex" style={{ justifyContent: "center" }}>
-      <Row xs={1} md={2} className="g-5">
-        <Col>
-          {venues.map((venue) => (
-            <Card key={venue.id} style={{ maxWidth: "600px" }}>
-              <Card.Img variant="top" src={venue.url} />
-              <Card.Body>
-                <Card.Title>{venue.name}</Card.Title>
-                <Card.Text>
-                  This is a longer card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer. This is a longer card with supporting text below as a
-                  natural lead-in to additional content. This content is a
-                  little bit longer.
-                </Card.Text>
-              </Card.Body>
-            </Card>
+    <>
+      <Form.Control
+        onChange={(e) => setSearch(e.target.value)}
+        type="search"
+        placeholder="Search"
+        style={{ maxWidth: "300px", marginLeft: "35px" }}
+      />
+      <Row style={{ justifyContent: "center" }}>
+        {visibleVenues
+          .filter((venue) => {
+            return search.toLowerCase() === ""
+              ? venue
+              : venue.name.toLowerCase().includes(search);
+          })
+          .slice()
+          .map((venue) => (
+            <CardComp key={venue.id} venue={venue} />
           ))}
-        </Col>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "20px",
+            marginTop: "20px",
+          }}
+        >
+          <ArrowLeft
+            onClick={prevPageHandler}
+            size={23}
+            style={{ marginTop: "-15px" }}
+          ></ArrowLeft>
+          <p>
+            {pages.map((page) => (
+              <span
+                style={{
+                  cursor: "pointer",
+                  paddingLeft: "10px",
+                  paddingRight: "10px",
+                }}
+                onClick={() => setCurrentPage(page)}
+                key={page}
+                className={`${currentPage === page ? "active" : ""}`}
+              >
+                {page}
+              </span>
+            ))}
+          </p>
+          <ArrowRight
+            onClick={nextPageHandler}
+            size={23}
+            style={{ marginTop: "-15px" }}
+          ></ArrowRight>
+        </div>
       </Row>
-    </Row>
+
+      <Row
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          marginLeft: "auto",
+          marginRight: "auto",
+        }}
+      ></Row>
+    </>
   );
 };
 
