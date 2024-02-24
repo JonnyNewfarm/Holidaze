@@ -20,7 +20,12 @@ export const Register = () => {
     event.preventDefault();
     apiClient
       .post("/holidaze/auth/register", post)
-      .then((response) => console.log(response.data))
+      .then((response) => {
+        if (response.status === 201) {
+          navigate("/login");
+        } else {
+        }
+      })
 
       .catch((err) => console.log(err));
   }
@@ -28,9 +33,25 @@ export const Register = () => {
   return (
     <>
       <Row style={{ justifyContent: "center" }}>
+        <h1
+          style={{
+            color: "#3a2b42",
+            textAlign: "center",
+            fontSize: "40px",
+            marginTop: "40px",
+          }}
+        >
+          Register
+        </h1>
         <Form
           onSubmit={handleSubmit}
-          style={{ maxWidth: "600px", marginTop: "50px" }}
+          style={{
+            maxWidth: "600px",
+            marginTop: "50px",
+            background: "white",
+            padding: "20px",
+            borderRadius: "20px",
+          }}
         >
           <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Label>Name</Form.Label>
@@ -41,7 +62,7 @@ export const Register = () => {
               name="name"
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3">
             <Form.Label>Email address</Form.Label>
             <Form.Control
               onChange={handleInput}
@@ -51,7 +72,7 @@ export const Register = () => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Group className="mb-3">
             <Form.Label>Avatar</Form.Label>
             <Form.Control
               type="string"
@@ -71,7 +92,11 @@ export const Register = () => {
             />
           </Form.Group>
 
-          <Button variant="primary" type="submit">
+          <Button
+            variant="primary"
+            type="submit"
+            style={{ background: "#3a2b42" }}
+          >
             Submit
           </Button>
         </Form>

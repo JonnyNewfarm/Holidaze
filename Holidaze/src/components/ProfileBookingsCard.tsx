@@ -1,6 +1,3 @@
-import React, { FormEvent, useState } from "react";
-import { venues } from "../hooks/useVenues";
-
 import { Link } from "react-router-dom";
 import { Button, Card, Form, Modal } from "react-bootstrap";
 import { ProfileBookings } from "../hooks/useProfileBookings";
@@ -12,7 +9,10 @@ interface Props {
 
 const ProfileBookingsCard = ({ booking }: Props) => {
   return (
-    <Card key={booking.id} style={{ maxWidth: "470px", margin: "10px" }}>
+    <Card
+      key={booking.id}
+      style={{ maxWidth: "470px", margin: "10px", borderRadius: "20px" }}
+    >
       <Link
         to={`/mybookings/` + booking.id}
         style={{
@@ -27,7 +27,7 @@ const ProfileBookingsCard = ({ booking }: Props) => {
           <Card.Text>Amount of guests: {booking.guests}</Card.Text>
           <Card.Text>Created: {booking.created}</Card.Text>
           <Card.Text>Updated: {booking.updated}</Card.Text>
-          <Button>Update Booking</Button>
+          <Button style={{ background: "#3a2b42" }}>Update Booking</Button>
         </Card.Body>
       </Link>
     </Card>

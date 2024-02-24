@@ -1,24 +1,25 @@
 import { useState } from "react";
 import { Form, Row } from "react-bootstrap";
 
-import useVenues from "../hooks/useVenues";
-
-import CardComp from "./CardComp";
-
 import "../App.css";
 import { ArrowLeft, ArrowRight } from "react-bootstrap-icons";
 import useProfileBookings from "../hooks/useProfileBookings";
 import ProfileBookingsCard from "./ProfileBookingsCard";
+import LoadingSpinner from "./LoadingSpinner";
+const spinners = [1, 2, 3, 4];
 
 const ProfileCardgrid = () => {
   const userName = localStorage.getItem("name");
-  const { bookings, error } = useProfileBookings(
+
+  const { bookings, error, isLoading } = useProfileBookings(
     `/holidaze/profiles/${userName}/bookings`
   );
 
   return (
     <>
-      <Row style={{ justifyContent: "center" }}>
+      {error && <p>{error}</p>}
+      <Row style={{ justifyContent: "center", marginTop: "40px" }}>
+        {isLoading && spinners.map((spinner) => <LoadingSpinner />)}
         {bookings.map((booking) => (
           <ProfileBookingsCard key={booking.id} booking={booking} />
         ))}

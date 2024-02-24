@@ -26,19 +26,30 @@ export const Login = () => {
           navigate("/");
           window.location.reload();
         } else {
-          console.log("error");
         }
       })
 
-      .catch((err) => setError(err));
+      .catch((error) => setError(error));
   }
 
   return (
     <>
+      {error && <p>{error}</p>}
       <Row style={{ justifyContent: "center" }}>
+        <h1
+          style={{ fontSize: "40px", textAlign: "center", marginTop: "50px" }}
+        >
+          Log in
+        </h1>
         <Form
           onSubmit={handleSubmit}
-          style={{ maxWidth: "600px", marginTop: "50px" }}
+          style={{
+            maxWidth: "600px",
+            marginTop: "50px",
+            background: "white",
+            borderRadius: "10px",
+            padding: "20px",
+          }}
         >
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
@@ -60,8 +71,12 @@ export const Login = () => {
             />
           </Form.Group>
 
-          <Button variant="primary" type="submit">
-            Submit
+          <Button
+            style={{ background: "#3a2b42" }}
+            variant="primary"
+            type="submit"
+          >
+            Log in
           </Button>
         </Form>
       </Row>

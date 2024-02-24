@@ -1,19 +1,9 @@
 import React, { FormEvent, useState } from "react";
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-import useProductDetail from "../hooks/useProductDetails";
-import {
-  AlertHeading,
-  Button,
-  Card,
-  CardTitle,
-  Col,
-  Form,
-  FormGroup,
-  Image,
-  Row,
-} from "react-bootstrap";
+import useProductDetail, { Product } from "../hooks/useProductDetails";
+import { AlertHeading, Button, Form, Image, Row } from "react-bootstrap";
 
 import apiClient from "../services/api-client";
 const primaryCol = "#170542";
@@ -36,20 +26,28 @@ const ProductDetails = () => {
   };
 
   const token = localStorage.getItem("accessToken");
+  const navigate = useNavigate();
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    console.log(post);
+
     apiClient
       .post("/holidaze/bookings", post, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((response) => console.log(response))
+      .then((response) => {
+        if (response.status === 201) {
+          navigate("/profile");
+        } else {
+        }
+      })
       .catch((error) => console.log(error));
   }
   const { products: product, error } = useProductDetail(
     "/holidaze/venues/" + id
   );
+
+  const [url, setUrl] = useState(`"${product?.media}`);
 
   return (
     <>
@@ -65,33 +63,53 @@ const ProductDetails = () => {
             <h1>{product.name}</h1>
           </Row>
           <Row style={{ justifyContent: "center", marginTop: "50px" }}>
-            <Image src={product.media} style={{ maxWidth: "600px" }}></Image>
+            <Image
+              src={product.media}
+              onError={() => {
+                setUrl(
+                  "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ="
+                );
+              }}
+              style={{
+                maxWidth: "600px",
+                maxHeight: "650px",
+                objectFit: "cover",
+              }}
+            ></Image>
 
             <Form
               onSubmit={handleSubmit}
               style={{ maxWidth: "600px", marginTop: "50px" }}
             >
               <Form.Group>
-                <Form.Label>Description: </Form.Label>
+                <Form.Label style={{ fontWeight: "bold", color: "#3a2b42" }}>
+                  Description:{" "}
+                </Form.Label>
               </Form.Group>
               <Form.Group>
                 <Form.Text>{product.description}</Form.Text>
               </Form.Group>
               <Form.Group>
-                <Form.Label>Price: </Form.Label>
+                <Form.Label style={{ fontWeight: "bold", color: "#3a2b42" }}>
+                  Price:{" "}
+                </Form.Label>
                 <Form.Group>
                   <Form.Text>{product.price}$</Form.Text>
                 </Form.Group>
               </Form.Group>
               <Form.Group>
-                <Form.Label>Max guests:</Form.Label>
+                <Form.Label style={{ fontWeight: "bold", color: "#3a2b42" }}>
+                  Max guests:
+                </Form.Label>
               </Form.Group>
               <Form.Group>
                 <Form.Text> {product.maxGuests}</Form.Text>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Date from</Form.Label>
+                <Form.Label style={{ fontWeight: "bold", color: "#3a2b42" }}>
+                  Date from
+                </Form.Label>
                 <Form.Control
                   type="date"
                   placeholder="Date from"
@@ -101,7 +119,9 @@ const ProductDetails = () => {
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Date to</Form.Label>
+                <Form.Label style={{ fontWeight: "bold", color: "#3a2b42" }}>
+                  Date to
+                </Form.Label>
                 <Form.Control
                   type="date"
                   placeholder="Date to"
@@ -110,12 +130,14 @@ const ProductDetails = () => {
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Amount of guests:</Form.Label>
+                <Form.Label style={{ fontWeight: "bold", color: "#3a2b42" }}>
+                  Amount of guests:
+                </Form.Label>
                 <Form.Group>
                   <Button
-                    className="btn btn-outline"
-                    variant="outline-dark"
+                    variant="outline-none"
                     onClick={(e) => setAmount(amount - 1)}
+                    style={{ background: "none", fontSize: "25px" }}
                   >
                     -
                   </Button>
@@ -124,13 +146,14 @@ const ProductDetails = () => {
                       fontSize: "20px",
                       marginLeft: "8px",
                       marginRight: "8px",
+                      color: "#3a2b42",
                     }}
                   >
                     {amount}
                   </Form.Text>
                   <Button
-                    variant="outline-dark"
-                    style={{ background: "none", outline: "none" }}
+                    variant="ouline-none"
+                    style={{ background: "none", fontSize: "25px" }}
                     onClick={(e) => setAmount(amount + 1)}
                   >
                     +
@@ -138,7 +161,11 @@ const ProductDetails = () => {
                 </Form.Group>
               </Form.Group>
 
-              <Button variant="primary" type="submit">
+              <Button
+                variant="primary"
+                type="submit"
+                style={{ background: "#3a2b42" }}
+              >
                 Book this venue
               </Button>
             </Form>

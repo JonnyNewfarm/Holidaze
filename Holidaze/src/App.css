@@ -1,7 +1,9 @@
 body {
     overflow-x: hidden;
+    background: #fcddca !important;
+    
 }
 .active {
-    color: purple;
-    font-size: 25px;
+    color: #3a2b42;
+    font-size: 28px;
 }

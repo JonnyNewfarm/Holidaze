@@ -7,11 +7,14 @@ import CardComp from "./CardComp";
 
 import "../App.css";
 import { ArrowLeft, ArrowRight } from "react-bootstrap-icons";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Cardgrid = () => {
   const [search, setSearch] = useState("");
 
-  const { venues, error } = useVenues("/holidaze/venues");
+  const { venues, error, isloading } = useVenues("/holidaze/venues");
+  const spinners = [1, 2, 3, 4];
+
   const [venuesPerPage, setVenuesPerPage] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -30,13 +33,22 @@ const Cardgrid = () => {
 
   return (
     <>
+      {error && <p>{error}</p>}
       <Form.Control
         onChange={(e) => setSearch(e.target.value)}
         type="search"
         placeholder="Search"
-        style={{ maxWidth: "300px", marginLeft: "35px" }}
+        style={{
+          maxWidth: "300px",
+          marginLeft: "35px",
+          color: "#3a2b42",
+          borderRadius: "10px",
+          border: "solid",
+          marginTop: "100px",
+        }}
       />
       <Row style={{ justifyContent: "center" }}>
+        {isloading && spinners.map((spinner) => <LoadingSpinner />)}
         {visibleVenues
           .filter((venue) => {
             return search.toLowerCase() === ""

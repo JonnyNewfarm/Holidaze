@@ -15,12 +15,16 @@ const ProfilePage = () => {
               alt="profile image"
               style={{
                 borderRadius: "50%",
-                maxWidth: "250px",
+                maxWidth: "200px",
+                marginLeft: "50px",
+                marginTop: "30px",
               }}
             />
           </Col>
         </Row>
-        <Row>
+        <Row style={{ marginTop: "50px" }}>
+          <hr></hr>
+          <h1 style={{ textAlign: "center" }}>Your Bookings</h1>
           <ProfileCardgrid />
         </Row>
       </div>
