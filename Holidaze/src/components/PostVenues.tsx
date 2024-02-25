@@ -31,7 +31,11 @@ const PostVenues = () => {
   };
   return (
     <>
-      <Form onSubmit={handleSubmit}>
+      <Form
+        onSubmit={handleSubmit}
+        style={{ background: "white", padding: "15px", borderRadius: "25px" }}
+      >
+        <h1 style={{ textAlign: "center" }}>Create venue</h1>
         <Form.Group>
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -119,7 +123,11 @@ const PostVenues = () => {
 
         <Button
           type="submit"
-          style={{ background: "#3a2b42", marginTop: "8px" }}
+          style={{
+            background: "#3a2b42",
+            marginTop: "8px",
+            marginBottom: "10px",
+          }}
         >
           Create venue
         </Button>

@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import PostVenues from "../components/PostVenues";
-import ManagerVenueCard from "../components/ManagerVenueCard";
+import ManagerVenueGrid from "../components/managerVenueGrid";
 
 export const Manager = () => {
   return (
     <>
       <Row>
-        <Col style={{ maxWidth: "400px" }}>
-          <h1>Create venue</h1>
+        <Col
+          style={{
+            maxWidth: "400px",
+            marginLeft: "40px",
+            marginTop: "60px",
+            marginBottom: "20px",
+          }}
+        >
           <PostVenues />
         </Col>
       </Row>
@@ -16,7 +22,8 @@ export const Manager = () => {
         <hr style={{ maxWidth: "80%" }}></hr>
       </Row>
       <Row>
-        <h1>Your venues</h1>
+        <h1 style={{ marginLeft: "40px", marginTop: "30px" }}>Your venues</h1>
+        <ManagerVenueGrid />
       </Row>
     </>
   );

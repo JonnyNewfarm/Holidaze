@@ -33,7 +33,7 @@ const ManagerVenueCard = ({ venue }: Props) => {
           }}
         />
         <Card.Title>{venue.name}</Card.Title>
-        <Card.Text>Date from: {venue.description}</Card.Text>
+        <Card.Text>Description: {venue.description}</Card.Text>
 
         <Button style={{ background: "#3a2b42" }}>Update Venue</Button>
       </Card.Body>

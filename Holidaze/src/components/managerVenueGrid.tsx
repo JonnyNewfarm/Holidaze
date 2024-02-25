@@ -7,7 +7,7 @@ import useVenues from "../hooks/useVenues";
 import ManagerVenueCard from "./ManagerVenueCard";
 const spinners = [1, 2, 3, 4];
 
-export const managerVenueGrid = () => {
+const managerVenueGrid = () => {
   const userName = localStorage.getItem("name");
 
   const { venues, error, isloading } = useVenues(
@@ -36,3 +36,4 @@ export const managerVenueGrid = () => {
     </>
   );
 };
+export default managerVenueGrid;
