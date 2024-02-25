@@ -2,7 +2,7 @@ import axios from "axios";
 import { EventHandler, FormEvent, useState } from "react";
 import { Button, Form, Row } from "react-bootstrap";
 import apiClient from "../services/api-client";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Register = () => {
   const [post, setPosts] = useState({
@@ -11,6 +11,15 @@ export const Register = () => {
     name: "",
     avatar: "",
   });
+  const [error, setError] = useState<{
+    email: string;
+    password: string;
+    name: string;
+  }>({
+    email: "",
+    password: "",
+    name: "",
+  });
   const handleInput = (event: any) => {
     setPosts({ ...post, [event.target.name]: event.target.value });
   };
@@ -18,6 +27,21 @@ export const Register = () => {
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
+    if (post.name.includes(".")) {
+      setError({
+        ...error,
+        name: "Name must not contain punctunation sympols",
+      });
+      return;
+    }
+    if (!post.email.includes("noroff.no")) {
+      setError({ ...error, email: "must be an valid Noroff email" });
+      return;
+    }
+    if (post.password.length < 8) {
+      setError({ ...error, password: "Must be at least 8 chars" });
+    }
+
     apiClient
       .post("/holidaze/auth/register", post)
       .then((response) => {
@@ -61,6 +85,7 @@ export const Register = () => {
               placeholder="name"
               name="name"
             />
+            <p style={{ color: "red" }}>{error.name}</p>
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Email address</Form.Label>
@@ -70,10 +95,11 @@ export const Register = () => {
               placeholder="Enter email"
               name="email"
             />
+            <p style={{ color: "red" }}>{error.email}</p>
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Avatar</Form.Label>
+            <Form.Label>Avatar (optional)</Form.Label>
             <Form.Control
               type="string"
               placeholder="Url"
@@ -90,12 +116,19 @@ export const Register = () => {
               name="password"
               onChange={handleInput}
             />
+            <p style={{ color: "red" }}>{error.password}</p>
+          </Form.Group>
+
+          <Form.Group style={{ marginTop: "-3px" }}>
+            <Link to="/login" style={{ color: "#3a2b42" }}>
+              Already have an account? Login here
+            </Link>
           </Form.Group>
 
           <Button
             variant="primary"
             type="submit"
-            style={{ background: "#3a2b42" }}
+            style={{ background: "#3a2b42", marginTop: "10px" }}
           >
             Submit
           </Button>

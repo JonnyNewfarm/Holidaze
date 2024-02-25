@@ -1,13 +1,17 @@
 import { Container, Image, Nav, Navbar, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAvatar from "../hooks/useAvatar";
+import "../App.css";
 
 const NavBar = () => {
-  const imgUrl = localStorage.getItem("avatar");
   const token = localStorage.getItem("accessToken");
   const name = localStorage.getItem("name");
+  const { avatar } = useAvatar(`/holidaze/profiles/${name}`);
+  const navigate = useNavigate();
   const onClick = () => {
     try {
       window.localStorage.clear();
+      navigate("/");
 
       window.location.reload();
     } catch (error) {
@@ -17,12 +21,13 @@ const NavBar = () => {
   if (token === null)
     return (
       <Navbar
-        expand="lg"
+        expand="md"
         className="bg-body-tertiary"
         style={{ fontSize: "larger" }}
       >
         <Container>
           <Navbar.Brand
+            className="navbrand"
             as={Link}
             to="/"
             style={{ fontSize: "40px", fontWeight: "bolder" }}
@@ -85,6 +90,7 @@ const NavBar = () => {
     >
       <Container>
         <Navbar.Brand
+          className="navbrand"
           as={Link}
           to="/"
           style={{ fontSize: "40px", fontWeight: "bolder" }}
@@ -123,11 +129,13 @@ const NavBar = () => {
               </Nav.Link>
               <Nav.Link as={Link} to="/profile">
                 <Image
-                  src={`${imgUrl}`}
+                  src={`${avatar?.avatar}`}
                   alt="profile image"
                   style={{
                     borderRadius: "50%",
-                    maxWidth: "50px",
+                    width: "50px",
+                    height: "50px",
+                    objectFit: "cover",
                   }}
                 />
               </Nav.Link>

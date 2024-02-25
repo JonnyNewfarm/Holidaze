@@ -34,19 +34,24 @@ const Cardgrid = () => {
   return (
     <>
       {error && <p>{error}</p>}
+      <Form.Label style={{ marginLeft: "35px", marginTop: "50px" }}>
+        Search for venues
+      </Form.Label>
+
       <Form.Control
         onChange={(e) => setSearch(e.target.value)}
         type="search"
         placeholder="Search"
+        id="search"
         style={{
           maxWidth: "300px",
           marginLeft: "35px",
           color: "#3a2b42",
           borderRadius: "10px",
           border: "solid",
-          marginTop: "100px",
         }}
       />
+
       <Row style={{ justifyContent: "center" }}>
         {isloading && spinners.map((spinner) => <LoadingSpinner />)}
         {visibleVenues
@@ -66,7 +71,7 @@ const Cardgrid = () => {
             justifyContent: "center",
             alignItems: "center",
             fontSize: "20px",
-            marginTop: "20px",
+            marginBottom: "-80px",
           }}
         >
           <ArrowLeft

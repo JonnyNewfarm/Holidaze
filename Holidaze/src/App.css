@@ -1,9 +1,30 @@
 body {
     overflow-x: hidden;
-    background: #fcddca !important;
+    background: #ffe5d5 !important;
     
 }
 .active {
     color: #3a2b42;
     font-size: 28px;
+}
+
+
+ @media only screen and (max-width: 700px) {
+
+  #basic-navbar-nav{
+    margin-right: 90px;
+    
+    margin-top: 50px;
+  }
+.navbrand {
+    margin-top: -150px;
+
+    
+}
+#search{
+    
+    
+}
+
+
 }

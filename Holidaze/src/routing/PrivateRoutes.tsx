@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 
 export const PrivateRoutes = () => {
   const token = localStorage.getItem("accessToken");
@@ -14,6 +15,8 @@ export const PrivateRoutes = () => {
       <div>
         <Outlet />
       </div>
+
+      <Footer />
     </>
   );
 };
