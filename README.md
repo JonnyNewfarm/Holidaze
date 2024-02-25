@@ -18,3 +18,17 @@ The client has specified the following requirements in the form of User Stories:
 - A registered user may login
 - A registered user may update their avatar
 - A registered user may logout
+
+
+# Built With:
+Adobe XD
+typescript
+React-bootstrap
+React, vite
+Noroff API
+
+# Development
+Clone this Repo:
+https://github.com/JonnyNewfarm/Holidaze
+Commands:
+npm run dev
