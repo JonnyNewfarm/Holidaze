@@ -24,11 +24,16 @@ The client has specified the following requirements in the form of User Stories:
 
 
 # Built With:
-Adobe XD
-typescript
-React-bootstrap
-React, vite
-Noroff API
+Adobe XD  
+
+typescript  
+
+React-bootstrap  
+
+React, vite  
+
+Noroff API  
+
 
 # Development
 Clone this Repo:
