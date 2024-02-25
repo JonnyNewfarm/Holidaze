@@ -30,5 +30,5 @@ Noroff API
 # Development
 Clone this Repo:
 https://github.com/JonnyNewfarm/Holidaze
-Commands:
+## Commands:
 npm run dev
