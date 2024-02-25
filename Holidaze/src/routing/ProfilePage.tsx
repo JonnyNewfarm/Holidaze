@@ -4,6 +4,7 @@ import ProfileCardgrid from "../components/ProfileCardGrid";
 import { Avatar } from "../components/Avatar";
 import apiClient from "../services/api-client";
 import { Link } from "react-router-dom";
+import VenueManager from "../components/VenueManager";
 
 const ProfilePage = () => {
   const name = localStorage.getItem("name");
@@ -59,26 +60,7 @@ const ProfilePage = () => {
               </Button>
             </Form>
           </Col>
-          <Col
-            style={{
-              maxWidth: "400px",
-              marginRight: "150px",
-              marginTop: "40px",
-            }}
-          >
-            <h1>Venue manager</h1>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-              viverra pharetra ante et faucibus. Curabitur orci justo, facilisis
-              vel dolor sit amet, dignissim lacinia lacus. Ut lorem dolor,
-              dignissim eget suscipit in, condimentum suscipit nulla. Donec
-              rutrum massa et dolor varius eleifend. Proin vulputate varius
-              cursus. Vivamus ac blandit erat, eu vestibulum diam.
-            </p>
-            <Link to="/manager">
-              <Button style={{ background: "#3a2b42" }}>Manage venues</Button>
-            </Link>
-          </Col>
+          <VenueManager />
         </Row>
         <Row style={{ marginTop: "50px" }}>
           <Row style={{ justifyContent: "center" }}>
