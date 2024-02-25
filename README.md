@@ -1,5 +1,5 @@
 
-#User stories
+# User stories
 
 The client has specified the following requirements in the form of User Stories:
 
