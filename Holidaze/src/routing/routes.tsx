@@ -9,6 +9,7 @@ import { ErrorPage } from "./ErrorPage";
 import { PrivateRoutes } from "./PrivateRoutes";
 import ProfilePage from "./ProfilePage";
 import { Mybookings } from "./Mybookings";
+import { Manager } from "./Manager";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
     children: [
       { path: "product/:id", element: <ProductDetails /> },
       { path: "mybookings/:id", element: <Mybookings /> },
+      { path: "manager", element: <Manager /> },
     ],
   },
 ]);

@@ -1,14 +1,15 @@
 import { Col, Row } from "react-bootstrap";
+import "../App.css";
 
 const Footer = () => {
   return (
     <>
-      <Row>
+      <Row style={{ justifyContent: "center" }}>
         <Col
+          id="footer"
           style={{
             background: "#3a2b42",
-            marginLeft: "270px",
-            marginRight: "270px",
+            maxWidth: "900px",
             marginTop: "200px",
             marginBottom: "15px",
             borderRadius: "20px",

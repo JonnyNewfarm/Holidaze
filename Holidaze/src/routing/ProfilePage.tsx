@@ -3,12 +3,14 @@ import { Button, Col, Form, Image, Row } from "react-bootstrap";
 import ProfileCardgrid from "../components/ProfileCardGrid";
 import { Avatar } from "../components/Avatar";
 import apiClient from "../services/api-client";
+import { Link } from "react-router-dom";
 
 const ProfilePage = () => {
   const name = localStorage.getItem("name");
   const [post, setPosts] = useState({
     avatar: "",
   });
+
   const handleInput = (event: any) => {
     setPosts({ ...post, [event.target.name]: event.target.value });
   };
@@ -31,8 +33,8 @@ const ProfilePage = () => {
   return (
     <>
       <div>
-        <Row style={{ justifyContent: "end", display: "flex" }}>
-          <Col>
+        <Row style={{}}>
+          <Col style={{ marginLeft: "60px" }}>
             <Avatar />
             <Form onSubmit={onSubmit} style={{ marginLeft: "55px" }}>
               <Form.Group>
@@ -56,6 +58,26 @@ const ProfilePage = () => {
                 Update avatar
               </Button>
             </Form>
+          </Col>
+          <Col
+            style={{
+              maxWidth: "400px",
+              marginRight: "150px",
+              marginTop: "40px",
+            }}
+          >
+            <h1>Venue manager</h1>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+              viverra pharetra ante et faucibus. Curabitur orci justo, facilisis
+              vel dolor sit amet, dignissim lacinia lacus. Ut lorem dolor,
+              dignissim eget suscipit in, condimentum suscipit nulla. Donec
+              rutrum massa et dolor varius eleifend. Proin vulputate varius
+              cursus. Vivamus ac blandit erat, eu vestibulum diam.
+            </p>
+            <Link to="/manager">
+              <Button style={{ background: "#3a2b42" }}>Manage venues</Button>
+            </Link>
           </Col>
         </Row>
         <Row style={{ marginTop: "50px" }}>

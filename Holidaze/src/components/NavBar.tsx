@@ -1,4 +1,4 @@
-import { Container, Image, Nav, Navbar, Row } from "react-bootstrap";
+import { Button, Container, Image, Nav, Navbar, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import useAvatar from "../hooks/useAvatar";
 import "../App.css";

@@ -6,6 +6,7 @@ import useProductDetail, { Product } from "../hooks/useProductDetails";
 import { AlertHeading, Button, Form, Image, Row } from "react-bootstrap";
 
 import apiClient from "../services/api-client";
+import { number } from "prop-types";
 const primaryCol = "#170542";
 
 const ProductDetails = () => {
@@ -21,6 +22,11 @@ const ProductDetails = () => {
     venueId: id,
   });
 
+  const [error, setError] = useState<{ dateFrom: string; dateTo: string }>({
+    dateFrom: "",
+    dateTo: "",
+  });
+
   const handleInput = (event: any) => {
     setPost({ ...post, [event.target.name]: event.target.value });
   };
@@ -30,6 +36,13 @@ const ProductDetails = () => {
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
+    if (post.dateFrom > post.dateTo) {
+      setError({
+        ...error,
+        dateTo: "Date from can not be larger than date to",
+      });
+      return;
+    }
 
     apiClient
       .post("/holidaze/bookings", post, {
@@ -43,15 +56,12 @@ const ProductDetails = () => {
       })
       .catch((error) => console.log(error));
   }
-  const { products: product, error } = useProductDetail(
-    "/holidaze/venues/" + id
-  );
+  const { products: product } = useProductDetail("/holidaze/venues/" + id);
 
   const [url, setUrl] = useState(`"${product?.media}`);
 
   return (
     <>
-      {error && <AlertHeading>{error}</AlertHeading>}
       {product && (
         <>
           <Row
@@ -160,6 +170,8 @@ const ProductDetails = () => {
                   </Button>
                 </Form.Group>
               </Form.Group>
+
+              <p style={{ color: "red" }}>{error.dateTo}</p>
 
               <Button
                 variant="primary"

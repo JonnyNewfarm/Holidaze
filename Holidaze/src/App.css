@@ -9,22 +9,38 @@ body {
 }
 
 
- @media only screen and (max-width: 700px) {
+@media only screen and (max-width: 900px){
+    #search-for-venues {
+    
+        margin-left: 150px;
+      }
+
+}
+
+ @media only screen and (max-width: 750px) {
 
   #basic-navbar-nav{
     margin-right: 90px;
     
     margin-top: 50px;
   }
-.navbrand {
-    margin-top: -150px;
 
+  #search-for-venues {
     
-}
-#search{
-    
-    
+    margin-left: 80px;
+  }
+
+
+
+
+
 }
 
+
+@media only screen and (max-width: 700px) {
+    #search-for-venues {
+    
+        margin-left: 35px;
+      }
 
 }
