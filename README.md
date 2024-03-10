@@ -40,5 +40,5 @@ Clone this Repo:
 https://github.com/JonnyNewfarm/Holidaze
 ## Commands:
 npm run dev
-## netlify link:
+## Netlify link:
 https://classy-basbousa-572739.netlify.app/
